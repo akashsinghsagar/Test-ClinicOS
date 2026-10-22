@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0A2342">
+<title>ClinicOS | Smarter Clinics. Healthier Communities.</title>
+<style>
+:root{
+  --navy:#0A2342;--teal:#0FA596;--blue:#136F8F;--midnight:#12335F;--mint:#2DD4BF;
+  --clinical:#F3F6FA;--border:#DCE7EC;--muted:#526b83;
+  --glass:rgba(255,255,255,.68);--glass-strong:rgba(255,255,255,.79);
+  --glass-border:rgba(255,255,255,.82);--shadow:0 24px 75px rgba(10,35,66,.18);
+}
+*{box-sizing:border-box}
+html{min-height:100%;scroll-behavior:smooth}
+body{margin:0;min-height:100vh;font-family:Inter,Manrope,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--navy);background:#eaf5f7}
+button,input,select{font:inherit}
+button{cursor:pointer}
+.page{min-height:100vh;position:relative;isolation:isolate;display:flex;flex-direction:column;overflow:hidden}
+.background{position:fixed;inset:0;z-index:-3;background-image:url("assets/clinic-glass-lobby.png");background-size:cover;background-position:center;background-repeat:no-repeat;transform:scale(1.015)}
+.background::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(237,248,249,.24),rgba(250,253,255,.45) 47%,rgba(232,246,248,.24)),linear-gradient(180deg,rgba(255,255,255,.10),rgba(10,35,66,.06))}
+.ambient{position:fixed;inset:0;z-index:-2;pointer-events:none;overflow:hidden}
+.orb{position:absolute;border:1px solid rgba(255,255,255,.65);border-radius:50%;background:linear-gradient(145deg,rgba(255,255,255,.25),rgba(45,212,191,.07));box-shadow:inset 0 0 42px rgba(255,255,255,.3);animation:float 16s ease-in-out infinite}
+.orb.one{width:340px;height:340px;top:-140px;left:23%}
+.orb.two{width:230px;height:230px;right:8%;bottom:-90px;animation-delay:-7s}
+@keyframes float{0%,100%{transform:translate3d(0,0,0)}50%{transform:translate3d(9px,-16px,0)}}
+.topbar{height:78px;padding:0 clamp(18px,5vw,64px);display:flex;align-items:center;justify-content:space-between;gap:18px;border-bottom:1px solid rgba(255,255,255,.55);background:rgba(255,255,255,.28);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}
+.brand-logo{display:block;width:202px;max-width:48vw;height:auto;object-fit:contain}
+.top-actions{display:flex;align-items:center;gap:9px;font-size:12px;color:#294a65}
+.top-actions button{border:1px solid rgba(255,255,255,.85);background:rgba(255,255,255,.52);color:var(--navy);border-radius:10px;padding:10px 14px;font-size:12px;font-weight:750;box-shadow:0 5px 16px rgba(10,35,66,.05);backdrop-filter:blur(12px)}
+.top-actions button:hover,.top-actions button.active{background:rgba(255,255,255,.9);border-color:rgba(15,165,150,.5);color:#087f73}
+main{width:100%;max-width:1320px;margin:auto;padding:clamp(25px,4vw,56px) 24px;display:grid;grid-template-columns:minmax(0,1fr) minmax(380px,470px);gap:clamp(32px,6vw,90px);align-items:center;flex:1}
+.hero{max-width:610px;padding:clamp(10px,2vw,26px)}
+.eyebrow{display:flex;align-items:center;gap:10px;color:#087f73;font-size:10px;letter-spacing:1.8px;font-weight:850;text-transform:uppercase}
+.eyebrow:before{content:"";width:28px;height:2px;border-radius:5px;background:var(--mint)}
+h1{font-size:clamp(39px,5vw,66px);line-height:1.04;letter-spacing:-2.9px;font-weight:760;margin:20px 0 18px;color:var(--navy);text-shadow:0 1px 0 rgba(255,255,255,.35)}
+h1 span{color:#078f86}
+.hero-copy{max-width:515px;color:#294d68;font-size:15px;line-height:1.85;margin:0}
+.features{display:grid;gap:13px;margin-top:30px}
+.feature{display:flex;align-items:center;gap:12px;font-size:13px;font-weight:700;color:#254966}
+.feature-icon{width:38px;height:38px;display:grid;place-items:center;border-radius:13px;border:1px solid rgba(255,255,255,.82);background:rgba(255,255,255,.55);box-shadow:0 7px 20px rgba(10,35,66,.07);backdrop-filter:blur(12px);color:#078f86;font-size:18px}
+.auth-card{position:relative;width:100%;padding:clamp(26px,3.5vw,38px);border-radius:26px;border:1px solid var(--glass-border);background:var(--glass);backdrop-filter:blur(26px) saturate(145%);-webkit-backdrop-filter:blur(26px) saturate(145%);box-shadow:var(--shadow),inset 0 1px 0 rgba(255,255,255,.95);overflow:hidden}
+.auth-card:before{content:"";position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--teal),var(--mint),var(--blue));opacity:.9}
+.auth-card:after{content:"";position:absolute;width:190px;height:190px;right:-115px;top:-120px;border-radius:50%;background:rgba(45,212,191,.13);border:1px solid rgba(255,255,255,.55);pointer-events:none}
+.auth-card>*{position:relative;z-index:1}
+.form-logo-shell{width:max-content;max-width:100%;margin:0 auto 25px;padding:0;border:0;border-radius:0;background:transparent;box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none}
+.form-logo{display:block;width:190px;max-width:100%;height:auto}
+.step{font-size:10px;letter-spacing:1.65px;font-weight:850;color:#078f86}
+h2{font-size:28px;letter-spacing:-1.1px;margin:11px 0 7px;color:var(--navy)}
+.sub{font-size:12px;line-height:1.7;color:#496680;margin:0 0 24px}
+.screen{display:none;animation:enter .24s ease-out}
+.screen.active{display:block}
+@keyframes enter{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+.field{display:grid;gap:7px;margin:15px 0}
+.field label{font-size:11px;font-weight:750;color:#173b5c}
+.field input,.field select{height:46px;width:100%;min-width:0;padding:0 12px;border:1px solid rgba(210,227,233,.95);border-radius:10px;background:rgba(255,255,255,.76);color:var(--navy);font-size:12px;outline:0;transition:border-color .18s,box-shadow .18s}
+.field input::placeholder{color:#8194a7}
+.field input:focus,.field select:focus{border-color:var(--teal);box-shadow:0 0 0 3px rgba(15,165,150,.14);background:rgba(255,255,255,.91)}
+.phone-row{display:grid;grid-template-columns:88px 1fr;gap:7px}
+.primary{width:100%;min-height:46px;margin-top:8px;padding:12px 16px;border:1px solid rgba(255,255,255,.86);border-radius:12px;background:linear-gradient(100deg,#08a99e,#10c5ae);box-shadow:0 8px 20px rgba(15,165,150,.24);color:#fff;font-size:12px;font-weight:850;transition:transform .18s,box-shadow .18s}
+.primary:hover{transform:translateY(-1px);box-shadow:0 12px 26px rgba(15,165,150,.33)}
+.text-link{border:0;background:transparent;padding:0;color:#007f86;font-size:inherit;font-weight:850}
+.text-link:hover{text-decoration:underline}
+.link-row{text-align:center;font-size:11px;color:#496680;margin-top:19px}
+.social-divider{display:flex;align-items:center;gap:10px;color:#637b91;font-size:10px;margin:22px 0 13px}
+.social-divider:before,.social-divider:after{content:"";height:1px;flex:1;background:rgba(210,225,232,.95)}
+.socials{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.social{height:39px;border:1px solid rgba(255,255,255,.94);border-radius:24px;background:rgba(255,255,255,.58);color:#294d6b;font-size:11px;font-weight:700;box-shadow:0 4px 13px rgba(10,35,66,.06)}
+.social:hover{background:rgba(255,255,255,.9)}
+.google{font-weight:900;color:#4285f4;font-size:15px;margin-right:6px}.microsoft{font-weight:900;color:#1675bc;font-size:15px;margin-right:6px}
+.message{display:none;padding:10px 12px;border-radius:9px;background:#e2f7f0;color:#087f73;font-size:11px;line-height:1.55;margin-top:12px}
+.message.show{display:block}.message.error{background:#fff0ef;color:#a13b3b}.message.info{background:#eaf4fb;color:#136f8f}
+.otp-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:7px;margin:20px 0 12px}
+.otp-grid input{height:48px;width:100%;min-width:0;border:1px solid rgba(210,225,232,.95);border-radius:10px;background:rgba(255,255,255,.78);text-align:center;color:var(--navy);font-size:19px;font-weight:850;outline:0}
+.otp-grid input:focus{border-color:var(--teal);box-shadow:0 0 0 3px rgba(15,165,150,.15)}
+.resend-row{display:flex;justify-content:center;gap:5px;flex-wrap:wrap;margin:14px 0 18px;color:#496680;font-size:10px}
+.change-row{text-align:center;margin-top:18px;font-size:11px}
+.secure-note{display:flex;align-items:center;justify-content:center;gap:7px;margin-top:24px;padding-top:17px;border-top:1px solid rgba(210,225,232,.8);font-size:10px;color:#496680}
+.secure-note svg{width:18px;height:18px;stroke:var(--blue);flex:none}
+.security-row{display:flex;gap:10px;margin-top:24px;padding-top:19px;border-top:1px solid rgba(210,225,232,.82)}
+.security-item{flex:1;text-align:center;color:#496680;font-size:9px;line-height:1.5}
+.security-item svg{display:block;width:22px;height:22px;margin:0 auto 7px;stroke:var(--blue)}
+.footer{padding:15px 24px;display:flex;justify-content:space-between;gap:12px;background:rgba(255,255,255,.3);border-top:1px solid rgba(255,255,255,.6);color:#496680;font-size:10px}
+@media(max-width:900px){main{grid-template-columns:1fr;max-width:620px;gap:25px;padding-top:34px;padding-bottom:35px}.hero{padding:0}.hero h1{font-size:46px}.features{grid-template-columns:1fr 1fr}.auth-card{max-width:500px;margin:0 auto}.topbar{height:72px}}
+@media(max-width:560px){.topbar{height:68px;padding:0 13px}.brand-logo{width:158px}.top-actions{font-size:0}.top-actions button{font-size:11px;padding:9px 10px}main{padding:25px 13px}.hero h1{font-size:37px;letter-spacing:-1.8px}.hero-copy{font-size:13px}.features{grid-template-columns:1fr;gap:9px;margin-top:20px}.feature-icon{width:32px;height:32px}.auth-card{padding:24px 19px;border-radius:21px}.form-logo{width:165px}h2{font-size:25px}.footer{flex-direction:column}.security-row{gap:5px}.security-item{font-size:8px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="background" aria-hidden="true"></div>
+  <div class="ambient" aria-hidden="true"><span class="orb one"></span><span class="orb two"></span></div>
+  <header class="topbar">
+    <div class="brand-shell"><img class="brand-logo" src="assets/clinicos-logo.png" alt="ClinicOS — Smarter Clinics. Healthier Communities."></div>
+    <div class="top-actions"><span id="topPrompt">New to ClinicOS?</span><button type="button" id="topToggle">Create account</button></div>
+  </header>
+  <main>
+    <section class="hero">
+      <div class="eyebrow">Care operations, thoughtfully connected</div>
+      <h1 id="heroTitle">A calmer way to run a <span>clinic.</span></h1>
+      <p class="hero-copy" id="heroCopy">Bring your daily workflows into one clear workspace—from patient arrivals to the consultation queue.</p>
+      <div class="features" id="features">
+        <div class="feature"><span class="feature-icon">✳</span>Effortless daily operations</div>
+        <div class="feature"><span class="feature-icon">♡</span>A smoother patient experience</div>
+        <div class="feature"><span class="feature-icon">⌁</span>Clearer operational insights</div>
+      </div>
+    </section>
+    <section class="auth-card" aria-live="polite">
+      <section class="screen active" id="loginScreen">
+        <div class="form-logo-shell"><img class="form-logo" src="assets/clinicos-logo.png" alt="ClinicOS"></div>
+        <div class="step">SECURE ACCESS · 01</div>
+        <h2>Welcome back</h2><p class="sub">Sign in to your ClinicOS workspace using your mobile number.</p>
+        <form id="loginForm" novalidate>
+          <div class="field"><label for="loginPhone">Mobile number</label><div class="phone-row"><select id="loginCode" aria-label="Country code"><option value="+91">+91 India</option><option value="+1">+1 US/Canada</option><option value="+44">+44 UK</option><option value="+971">+971 UAE</option><option value="+61">+61 Australia</option></select><input id="loginPhone" type="tel" inputmode="tel" autocomplete="tel-national" placeholder="98765 43210" required></div></div>
+          <button class="primary" type="submit">Send OTP <span aria-hidden="true">→</span></button>
+        </form>
+        <div class="social-divider">or continue with</div>
+        <div class="socials"><button class="social" type="button" id="googleBtn"><span class="google">G</span>Google</button><button class="social" type="button" id="microsoftBtn"><span class="microsoft">▦</span>Microsoft</button></div>
+        <div id="loginMessage" class="message" role="status"></div>
+        <p class="link-row">New to ClinicOS? <button class="text-link" type="button" data-go="signup">Create an account</button></p>
+        <div class="security-row"><div class="security-item"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><rect x="5" y="10" width="14" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>Secure<br>&amp; Encrypted</div><div class="security-item"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M12 22s8-4 8-11V5l-8-3-8 3v6c0 7 8 11 8 11Z"/><path d="m9 12 2 2 4-4"/></svg>Privacy-first<br>Architecture</div><div class="security-item"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M20 16.5A4.5 4.5 0 0 0 18 8h-1A6 6 0 0 0 5 9.5 4 4 0 0 0 6 17h14Z"/></svg>Built for<br>Healthcare</div></div>
+      </section>
+      <section class="screen" id="signupScreen">
+        <div class="form-logo-shell"><img class="form-logo" src="assets/clinicos-logo.png" alt="ClinicOS"></div>
+        <div class="step">CREATE WORKSPACE · 01</div>
+        <h2>Create your account</h2><p class="sub">Get started with ClinicOS in a few steps.</p>
+        <form id="signupForm" novalidate>
+          <div class="field"><label for="fullName">Full name</label><input id="fullName" autocomplete="name" placeholder="Enter your full name" required></div>
+          <div class="field"><label for="clinicName">Clinic name</label><input id="clinicName" placeholder="Your clinic or practice name" required></div>
+          <div class="field"><label for="signupPhone">Mobile number</label><div class="phone-row"><select id="signupCode" aria-label="Country code"><option value="+91">+91 India</option><option value="+1">+1 US/Canada</option><option value="+44">+44 UK</option><option value="+971">+971 UAE</option><option value="+61">+61 Australia</option></select><input id="signupPhone" type="tel" inputmode="tel" autocomplete="tel-national" placeholder="98765 43210" required></div></div>
+          <div class="field"><label for="email">Email address</label><input id="email" type="email" autocomplete="email" placeholder="you@clinic.com" required></div>
+          <div class="field"><label for="role">Your role</label><select id="role" required><option value="">Select your role</option><option>Doctor</option><option>Clinic owner</option><option>Receptionist</option><option>Clinic administrator</option></select></div>
+          <button class="primary" type="submit">Create account <span aria-hidden="true">→</span></button>
+        </form>
+        <div id="signupMessage" class="message" role="status"></div>
+        <p class="link-row">Already have an account? <button class="text-link" type="button" data-go="login">Sign in</button></p>
+        <div class="security-row"><div class="security-item"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><rect x="5" y="10" width="14" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>Secure<br>&amp; Encrypted</div><div class="security-item"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M12 22s8-4 8-11V5l-8-3-8 3v6c0 7 8 11 8 11Z"/></svg>Privacy-first<br>Architecture</div><div class="security-item"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M20 16.5A4.5 4.5 0 0 0 18 8h-1A6 6 0 0 0 5 9.5 4 4 0 0 0 6 17h14Z"/></svg>Built for<br>Healthcare</div></div>
+      </section>
+      <section class="screen" id="otpScreen">
+        <div class="form-logo-shell"><img class="form-logo" src="assets/clinicos-logo.png" alt="ClinicOS"></div>
+        <div class="step">MOBILE VERIFICATION · 02</div>
+        <h2>Verify your number</h2><p class="sub" id="otpCopy">We've sent a 6-digit OTP to your mobile number.</p>
+        <div class="message info show">Prototype mode: enter <strong>123456</strong>. No SMS is sent.</div>
+        <form id="otpForm" novalidate>
+          <div class="otp-grid" id="otpGrid"><input aria-label="Digit 1" maxlength="1" inputmode="numeric" autocomplete="one-time-code" required><input aria-label="Digit 2" maxlength="1" inputmode="numeric" required><input aria-label="Digit 3" maxlength="1" inputmode="numeric" required><input aria-label="Digit 4" maxlength="1" inputmode="numeric" required><input aria-label="Digit 5" maxlength="1" inputmode="numeric" required><input aria-label="Digit 6" maxlength="1" inputmode="numeric" required></div>
+          <button class="primary" type="submit">Verify OTP <span aria-hidden="true">→</span></button>
+        </form>
+        <div class="resend-row">Didn't receive the code? <button class="text-link" type="button" id="resendBtn">Resend code</button><span id="timer"></span></div>
+        <div id="otpMessage" class="message" role="status"></div>
+        <p class="change-row"><button class="text-link" type="button" id="changeNumber">← Change mobile number</button></p>
+        <div class="secure-note"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M12 22s8-4 8-11V5l-8-3-8 3v6c0 7 8 11 8 11Z"/><path d="m9 12 2 2 4-4"/></svg>Your information is secure and encrypted</div>
+      </section>
+      <section class="screen" id="successScreen">
+        <div class="form-logo-shell"><img class="form-logo" src="assets/clinicos-logo.png" alt="ClinicOS"></div>
+        <div class="step">VERIFICATION COMPLETE · 03</div><h2>You're verified</h2><p class="sub">Your number has been verified in this prototype. The production app would now load your ClinicOS workspace.</p>
+        <div class="message show">Demo complete. No account or session has been created.</div>
+        <button class="primary" type="button" id="backToLogin">Back to sign in</button>
+      </section>
+    </section>
+  </main>
+  <footer class="footer"><span>© ClinicOS · Smarter Clinics. Healthier Communities.</span><span>Glassmorphism theme prototype · No backend connected</span></footer>
+</div>
+<script>
+const $=id=>document.getElementById(id);
+const screenIds=['loginScreen','signupScreen','otpScreen','successScreen'];
+let currentFlow='login',currentPhone='',timer=null,seconds=28;
+function showScreen(name){
+  screenIds.forEach(id=>$(id).classList.toggle('active',id===name+'Screen'));
+  const isSignup=name==='signup';
+  $('topPrompt').textContent=isSignup?'Already have an account?':'New to ClinicOS?';
+  $('topToggle').textContent=isSignup?'Sign in':'Create account';
+  $('heroTitle').innerHTML=isSignup?'Make room for <span>better care.</span>':'A calmer way to run a <span>clinic.</span>';
+  $('heroCopy').textContent=isSignup?'Create a connected workspace for your team, your patients and the everyday work of care.':'Bring your daily workflows into one clear workspace—from patient arrivals to the consultation queue.';
+  $('features').innerHTML=isSignup?'<div class="feature"><span class="feature-icon">✓</span>Simple, secure onboarding</div><div class="feature"><span class="feature-icon">⌘</span>Designed around clinic workflows</div><div class="feature"><span class="feature-icon">✧</span>Built for operational intelligence</div>':'<div class="feature"><span class="feature-icon">✳</span>Effortless daily operations</div><div class="feature"><span class="feature-icon">♡</span>A smoother patient experience</div><div class="feature"><span class="feature-icon">⌁</span>Clearer operational insights</div>';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function showMessage(id,text,type=''){const el=$(id);el.textContent=text;el.className='message show'+(type?' '+type:'')}
+function clearMessage(id){$(id).textContent='';$(id).className='message'}
+function digits(s){return s.replace(/\D/g,'')}
+function phoneFrom(code,id){return code+' '+$(id).value.trim()}
+function startTimer(){if(timer)clearInterval(timer);seconds=28;$('timer').textContent=' · 00:28';$('resendBtn').disabled=true;timer=setInterval(()=>{seconds--;if(seconds<=0){clearInterval(timer);timer=null;$('timer').textContent='';$('resendBtn').disabled=false}else{$('timer').textContent=' · 00:'+String(seconds).padStart(2,'0')}},1000)}
+function beginOtp(flow,phone){currentFlow=flow;currentPhone=phone;$('otpCopy').innerHTML='We\\'ve sent a 6-digit OTP to<br><strong>'+phone.replace(/[&<>"]/g,'')+'</strong>';clearMessage('otpMessage');document.querySelectorAll('#otpGrid input').forEach(i=>i.value='');showScreen('otp');startTimer();document.querySelector('#otpGrid input').focus()}
+$('topToggle').addEventListener('click',()=>showScreen($('signupScreen').classList.contains('active')?'login':'signup'));
+document.querySelectorAll('[data-go]').forEach(b=>b.addEventListener('click',()=>showScreen(b.dataset.go)));
+$('loginForm').addEventListener('submit',e=>{e.preventDefault();if(digits($('loginPhone').value).length<7){showMessage('loginMessage','Please enter a valid mobile number.','error');return}clearMessage('loginMessage');beginOtp('login',phoneFrom($('loginCode').value,'loginPhone'))});
+$('signupForm').addEventListener('submit',e=>{e.preventDefault();if(!$('signupForm').reportValidity())return;if(digits($('signupPhone').value).length<7){showMessage('signupMessage','Please enter a valid mobile number.','error');return}clearMessage('signupMessage');beginOtp('signup',phoneFrom($('signupCode').value,'signupPhone'))});
+const otpInputs=[...document.querySelectorAll('#otpGrid input')];
+otpInputs.forEach((el,i)=>{el.addEventListener('input',()=>{el.value=digits(el.value).slice(-1);if(el.value&&otpInputs[i+1])otpInputs[i+1].focus()});el.addEventListener('keydown',e=>{if(e.key==='Backspace'&&!el.value&&otpInputs[i-1])otpInputs[i-1].focus();if(e.key==='ArrowLeft'&&otpInputs[i-1])otpInputs[i-1].focus();if(e.key==='ArrowRight'&&otpInputs[i+1])otpInputs[i+1].focus()});el.addEventListener('paste',e=>{const data=digits((e.clipboardData||window.clipboardData).getData('text')).slice(0,6);if(data){e.preventDefault();data.split('').forEach((d,j)=>{if(otpInputs[j])otpInputs[j].value=d});otpInputs[Math.min(data.length,5)].focus()}})});
+$('otpForm').addEventListener('submit',e=>{e.preventDefault();const code=otpInputs.map(i=>i.value).join('');if(code!=='123456'){showMessage('otpMessage','Incorrect demo code. Enter 123456.','error');return}if(timer)clearInterval(timer);showScreen('success')});
+$('resendBtn').addEventListener('click',()=>{showMessage('otpMessage','Demo OTP is 123456. No SMS was sent.','info');startTimer()});
+$('changeNumber').addEventListener('click',()=>{if(timer)clearInterval(timer);showScreen(currentFlow==='signup'?'signup':'login')});
+$('googleBtn').addEventListener('click',()=>showMessage('loginMessage','Google sign-in is a visual placeholder; no external provider is connected.','info'));
+$('microsoftBtn').addEventListener('click',()=>showMessage('loginMessage','Microsoft sign-in is a visual placeholder; no external provider is connected.','info'));
+$('backToLogin').addEventListener('click',()=>showScreen('login'));
+</script>
+</body>
+</html>
